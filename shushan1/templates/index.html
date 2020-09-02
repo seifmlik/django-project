@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<table border="2">
+    <tr>
+
+
+        <th>batterie</th>
+    </tr>
+    <tr>{%for i in d %}
+
+
+        <td><a href="{% url 'getbarile' i.nomebatterie %}">{{i.nomebatterie}}</a></td>
+
+
+    </tr>
+
+
+    {%endfor%}
+
+</table>
+
+</body>
+</html>

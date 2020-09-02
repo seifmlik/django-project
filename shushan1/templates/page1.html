@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>page1</title>
+</head>
+<body>
+
+
+
+  <!-- Form -->
+        <form method="post" action="{%url 'get2' a.nomeb%}">{% csrf_token %}
+
+                    <!-- Nome Barile -->
+
+                        <input type="hidden" name="nome" value="{{a.nomeb}}">
+
+
+
+
+
+
+
+            <!-- Capacita -->
+
+               <label>capacita</label> <input type="number" name="capacita" value="{{a.capacita}}">
+
+
+
+
+            <!-- Tipolegno -->
+
+                 <input type="hidden"  name="tipo" value="{{a.tipolegno}}">
+
+
+
+            <!-- Batterie -->
+
+               <input type="hidden"  name="batterie" value="{{a.bat.nomebatterie}}" ><br>
+            <!-- Mosto o Aceto-->
+            <label>Mosto</label><input type="checkbox" name="check" value="Mosto">
+            <label>Aceto</label><input type="checkbox" name="check" value="Aceto">
+
+
+
+
+
+            <!-- Sign up button -->
+            <button  type="submit">aggiunge</button>
+
+
+        </form>
+        <!-- Form -->
+
+
+</body>
+</html>

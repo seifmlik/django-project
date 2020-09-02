@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="2">
+    <tr><th> Nomi di Barili</th><th> Capacita</th><th>Aggiunge</th><th>Prelevare</th></tr>
+<tr>{%for i in d %}
+
+<td>
+{{i.nomeb}}</td>
+    <td>
+        {{i.capacita}}</td><td><a href="{%url 'get' i.nomeb %}">aggiuge</a></td><td><a href="{%url 'prel' i.nomeb %}">Prelevare</a></td>
+
+    <td><a href="{%url 'rabbocco' i.bat.nomebatterie %}">zebbi</a></td>
+
+</tr>{%endfor%}</table>
+
+    <!--{{i.tipolegno}}-->
+    <!--{{i.bat.nomebatterie}}-->
+
+
+
+</body>
+</html>

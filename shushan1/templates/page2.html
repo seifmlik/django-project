@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>page1</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+
+  <!-- Form -->
+        <form method="post" action="{%url 'prelback' b.nomeb%}">{% csrf_token %}
+
+                    <!-- Nome Barile -->
+
+                        <input type="hidden" name="nome" value="{{b.nomeb}}">
+
+
+
+
+
+
+
+            <!-- Capacita -->
+
+               <label>capacita</label> <input type="number" name="capacita" value="{{b.capacita}}">
+
+
+
+
+            <!-- Tipolegno -->
+
+                 <input type="hidden"  name="tipo" value="{{b.tipolegno}}">
+
+
+
+            <!-- Batterie -->
+
+               <input type="hidden"  name="batterie" value="{{b.bat.nomebatterie}}" ><br>
+
+
+            <!-- capmax -->
+
+               capmax<input type="text"  name="capacitamax" value="{{b.capacitamax}}" ><br>
+
+            <!-- precedente -->
+
+               <input type="hidden"  name="precedente" value="{{b.precedente}}" >
+
+               <!-- precedente -->
+            <input type="hidden"  name="prossimo" value="{{b.prossimo}}" >
+
+
+
+
+            <!-- Sign up button -->
+            <button  type="submit">prelevare</button>
+
+
+        </form>
+        <!-- Form -->
+
+
+</body>
+</html>
