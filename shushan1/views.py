@@ -59,57 +59,95 @@ def prelback(request, nome):
 
 def rabbocco(request, nome):
     f = Batterie.objects.get(nomebatterie=nome)
-
     m = Barile.objects.filter(bat=f)
-    t=m[::-1]
+    t = m[::-1]
     print(t)
     r = []
     for i in range(len(t)):
-        s = i
+        s=i
         while (t[i].capacita < t[i].capacitamax and s < len(t) - 1):
             d = t[i].capacitamax - t[i].capacita
-            r.append(d)
+            if (t[s + 1].capacita >= d):
+                r.append(d)
+                print("e venuta a " + str(t[i].nomeb) + " " + str(d) + " litri" + " venuta da " + str(t[s + 1].nomeb))
+                f = models.Rabbocco(barileorigine=str(t[s + 1].nomeb), bariledestinazione=str(t[i].nomeb),
+                                    quantita=int(d))
+                f.save()
             if (t[s + 1].capacita < d and s <= (len(t) - 2)):
-                r.append(0)
                 t[i].capacita = t[i].capacita + t[s + 1].capacita
+                r.append(t[s + 1].capacita)
+                print("e venuta a " + str(i) + " " + str(t[s + 1].capacita) + " litri" + " venuta da " + str(s + 1))
+                f = models.Rabbocco(barileorigine=str(t[s+1].nomeb), bariledestinazione=str(t[i].nomeb),
+                                    quantita=int(t[s + 1].capacita))
+                f.save()
                 t[s + 1].capacita = 0
-                s += 1
-
-                if (s == len(t) - 1):
+                s+=1
+                if (s == 3):
                     break
             else:
                 t[s + 1].capacita = t[s + 1].capacita - d
                 t[i].capacita = t[i].capacita + d
                 s += 1
-    m = []
 
-    for i in r:
-        if (i != 0):
-            m.append(i)
-    h=0
-    for v in t[(len(m) - 1):]:
-        h=h+v.capacita
-    print(h)
+    for i in range(len(t)):
+        print(t[i].capacita)
+    return HttpResponse('lééé')
 
-    k = m[:(len(m) - 1)] + [h]
-    print(k)
 
-    j = range(len(t) - 1)
-
-    for i in range(len(m) - 1):
-        print("e venuta a " + str(i) + " " + str(k[i]) + " litri" + " venuta da " + str(i + 1))
-        f = models.Rabbocco(barileorigine=str(t[i+1]), bariledestinazione=str(t[i]), quantita=int(k[i]))
-        print(str(t[i]),t[i].capacitamax,t[i].precedente,t[i].prossimo,t[i].capacita,t[i].tipolegno)
-        ne = models.Barile(nomeb=str(t[i]), capacitamax=int(t[i].capacitamax), precedente=str(t[i].precedente),
-                            prossimo=str(t[i].prossimo),
-                            capacita=int(t[i].capacita),
-                            tipolegno=str(t[i].tipolegno),bat=t[i].bat)
-        ne.save()
-
-        f.save()
-    # print("e venuta a " + str(i + 1) + " " + str(k[i + 1]) + " litri" + " venuta da " + str(j[(len(m)):]))
-    f = models.Rabbocco(barileorigine=str(j[(len(m)):]), bariledestinazione=str(t[i+1]), quantita=int(k[i+1]))
-    f.save()
+#
+# def rabbocco(request, nome):
+#     f = Batterie.objects.get(nomebatterie=nome)
+#
+#     m = Barile.objects.filter(bat=f)
+#     t=m[::-1]
+#     print(t)
+#     r = []
+#     for i in range(len(t)):
+#         s = i
+#         while (t[i].capacita < t[i].capacitamax and s < len(t) - 1):
+#             d = t[i].capacitamax - t[i].capacita
+#             r.append(d)
+#             if (t[s + 1].capacita < d and s <= (len(t) - 2)):
+#                 r.append(0)
+#                 t[i].capacita = t[i].capacita + t[s + 1].capacita
+#                 t[s + 1].capacita = 0
+#                 s += 1
+#
+#                 if (s == len(t) - 1):
+#                     break
+#             else:
+#                 t[s + 1].capacita = t[s + 1].capacita - d
+#                 t[i].capacita = t[i].capacita + d
+#                 s += 1
+#     m = []
+#
+#     for i in r:
+#         if (i != 0):
+#             m.append(i)
+#     h=0
+#     for v in t[(len(m) - 1):]:
+#         h=h+v.capacita
+#     print(h)
+#
+#     k = m[:(len(m) - 1)] + [h]
+#     print(k)
+#
+#     j = range(len(t) - 1)
+#
+#     for i in range(len(m) - 1):
+#         print("e venuta a " + str(i) + " " + str(k[i]) + " litri" + " venuta da " + str(i + 1))
+#         f = models.Rabbocco(barileorigine=str(t[i+1]), bariledestinazione=str(t[i]), quantita=int(k[i]))
+#         print(str(t[i]),t[i].capacitamax,t[i].precedente,t[i].prossimo,t[i].capacita,t[i].tipolegno)
+#         ne = models.Barile(nomeb=str(t[i]), capacitamax=int(t[i].capacitamax), precedente=str(t[i].precedente),
+#                             prossimo=str(t[i].prossimo),
+#                             capacita=int(t[i].capacita),
+#                             tipolegno=str(t[i].tipolegno),bat=t[i].bat)
+#         ne.save()
+#
+#         f.save()
+#     # print("e venuta a " + str(i + 1) + " " + str(k[i + 1]) + " litri" + " venuta da " + str(j[(len(m)):]))
+#     f = models.Rabbocco(barileorigine=str(j[(len(m)):]), bariledestinazione=str(t[i+1]), quantita=int(k[i+1]))
+#     f.save()
     # for i in range(len(t)):
     #     try:
     #         ne = models.Barile(nomeb=str(t[i]), capacitamax=int(t[i].capacitamax), precedente=str(t[i].precedente),
@@ -212,4 +250,4 @@ def rabbocco(request, nome):
     # # print(str(b.capacita)+" "+ str(c.capacita))
     # # b.save()
     # # c.save()
-    return HttpResponse('sallem')
+    # return HttpResponse('sallem')
